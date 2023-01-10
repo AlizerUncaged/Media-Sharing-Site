@@ -1,0 +1,66 @@
+﻿@page
+@using Media_Sharing_Site.Models
+@using Utilities.Models
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="container">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h2>Create a new account.</h2>
+            <hr/>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating mb-2">
+                <input asp-for="Input.FirstName" class="form-control" autocomplete="firstname" aria-required="true"/>
+                <label asp-for="Input.FirstName"></label>
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-2">
+                <input asp-for="Input.LastName" class="form-control" autocomplete="lastname" aria-required="true"/>
+                <label asp-for="Input.LastName"></label>
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-2">
+                <input asp-for="Input.Address" class="form-control" autocomplete="address" aria-required="true"/>
+                <label asp-for="Input.Address"></label>
+                <span asp-validation-for="Input.Address" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-2">
+                <input asp-for="Input.BirthDay" class="form-control" autocomplete="birthdate" aria-required="true"/>
+                <label asp-for="Input.BirthDay"></label>
+                <span asp-validation-for="Input.BirthDay" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-2">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true"/>
+                <label asp-for="Input.Email"></label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-2">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true"/>
+                <label asp-for="Input.Password"></label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-2">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true"/>
+                <label asp-for="Input.ConfirmPassword"></label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            @{
+
+            }
+            <div class="form-floating mb-2">
+                <select class="form-control" asp-for="Input.AccountType" asp-items="@Enum.GetValues(typeof(AccountType)).Cast<AccountType>().Select(x => new SelectListItem { Value = ((int)x).ToString(), Text = x.ToString() })"></select>
+                <label asp-for="Input.AccountType"></label>
+            </div>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary mb-2">Register</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}

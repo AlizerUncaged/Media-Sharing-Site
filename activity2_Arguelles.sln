@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "activity2_Arguelles", "activity2_Arguelles\activity2_Arguelles.csproj", "{110D724E-6DB0-4272-95B5-26BD485CC4ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{FE8FE679-04E1-46DA-807A-80C308A52429}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{110D724E-6DB0-4272-95B5-26BD485CC4ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{110D724E-6DB0-4272-95B5-26BD485CC4ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{110D724E-6DB0-4272-95B5-26BD485CC4ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{110D724E-6DB0-4272-95B5-26BD485CC4ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE8FE679-04E1-46DA-807A-80C308A52429}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE8FE679-04E1-46DA-807A-80C308A52429}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE8FE679-04E1-46DA-807A-80C308A52429}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE8FE679-04E1-46DA-807A-80C308A52429}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

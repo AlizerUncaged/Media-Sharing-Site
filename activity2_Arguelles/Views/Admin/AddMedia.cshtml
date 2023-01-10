@@ -1,0 +1,82 @@
+﻿@using Utilities.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Identity
+@using Media_Sharing_Site.Data
+@using Microsoft.EntityFrameworkCore
+
+@inject SignInManager<IdentityUser> SignInManager
+
+@inject UserManager<IdentityUser> UserManager
+
+@inject RoleManager<IdentityRole> RoleManager
+
+@inject ApplicationDbContext DbContext
+@{
+    var targetId = (long?)ViewData["TargetId"];
+
+    var media = new Media();
+
+    if (targetId is {})
+        media = await DbContext.Medias.FirstOrDefaultAsync(x => x.Id == targetId);
+
+    ViewData["Title"] = $"{(targetId is {} ? "Edit" : "Add New")}  Media";
+}
+<div class="text-center mb-4">
+    @if ((bool)ViewData["Success"])
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Media Added!</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <h1>@ViewData["Title"]</h1>
+    <form method="post" enctype="multipart/form-data">
+        <hr/>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @if (targetId is {})
+        {
+            <div class="form-floating mb-2">
+                <input name="targetId" type="hidden" value="@targetId" class="form-control" aria-required="true"/>
+            </div>
+        }
+        <div class="form-floating mb-2">
+            <input value="@media.Name" name="name" class="form-control" aria-required="true"/>
+            <label>Name</label>
+        </div>
+        <div class="form-floating mb-2">
+            <input value="@media.Author" name="author" class="form-control" aria-required="true"/>
+            <label>Author's Name</label>
+        </div>
+        <div class="form-floating mb-2">
+            <input id="pricetb" value="@(media.Price <= 0 ? "6.25" : $"{media.Price}")" name="price" type="number" step="0.0001" class="form-control" aria-required="true"/>
+            <label>Price</label>
+        </div>
+        <div class="mb-2">
+            <input class="form-control" type="file" name="file"/>
+            <label>Media File</label>
+        </div>
+        <div class="mb-2">
+            <input class="form-control" type="file" name="thumbnail"/>
+            <label>Image Thumbnail</label>
+        </div>
+        <script>
+        let priceTb = document.getElementById("pricetb");
+        function changedItem(select)
+        {
+            if (select.value == 1)
+                {
+                    priceTb.value = "3.50";
+                }
+            else if (select.value == 0)
+                {
+                    priceTb.value = "6.25";
+                }
+        }
+        </script>
+        <div class="form-floating mb-2">
+            <select onchange="changedItem(this)" class="form-control" name="mediaType" asp-items="@Enum.GetValues(typeof(MediaType)).Cast<MediaType>().Select(x => new SelectListItem { Value = ((int)x).ToString(), Text = x.ToString(), Selected = media.MediaType == x })"></select>
+            <label>Media Type</label>
+        </div>
+        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary mb-2">Add Media</button>
+    </form>
+</div>

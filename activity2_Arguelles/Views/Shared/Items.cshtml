@@ -1,0 +1,55 @@
+﻿@inject ApplicationDbContext DbContext
+
+@using Utilities.Models
+@using Media_Sharing_Site.Data
+@using Utilities
+@{
+    if (!ViewData.ContainsKey("Page"))
+    {
+        ViewData["Page"] = 0;
+    }
+    // var page = (int)ViewData["Page"];
+
+    var items = await
+        DbContext.Medias.GetAllMedia();
+}
+
+<div class="container row">
+    @foreach (var item in items)
+    {
+        <a class="col-sm-4 col-6 col-md-3 mb-2" href="/items/@item.Id">
+            <article class="container-fluid m-0 p-0">
+                <div class="row ms-2 p-0 justify-content-center" page="0">
+                    <div class="card m-0 p-0 bg-transparent position-relative">
+                        <div class="rounded-3 overflow-hidden position-relative" style="height: 350px">
+                            <p class="card-text m-3 position-absolute opacity-100" style="font-weight: 500; z-index: 45">
+                                <span class="text-dark">
+                                    <b>
+                                        @item.Name - $@item.Price
+                                    </b>
+                                </span> <br/>
+                                <span class="text-dark">@item.Author, Stocks - @item.Stocks</span>
+
+                            </p>
+
+                            <img loading="lazy" style="z-index: 44; object-fit: cover" class="h-100 opacity-50 w-100 position-absolute" src="/@item.Thumbnail"/>
+
+                            @if (item.MediaType is MediaType.Video)
+                            {
+                                <video class="player content-video w-100 h-100 position-absolute" preload="auto" style="z-index: 90; object-fit: cover" muted loop controls>
+                                    <source src="/@item.FileName" type="video/mp4"/>
+                                </video>
+                            }
+                            else
+                            {
+                                <audio class="w-100 bottom-0 position-absolute" style="z-index: 90" controls>
+                                    <source src="/@item.FileName"/>
+                                </audio>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </a>
+    }
+</div>

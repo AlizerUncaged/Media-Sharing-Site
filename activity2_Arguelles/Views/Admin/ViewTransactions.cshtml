@@ -1,0 +1,33 @@
+﻿@using Media_Sharing_Site.Data
+@using Microsoft.EntityFrameworkCore
+@using Utilities
+
+@inject ApplicationDbContext DbContext
+
+@{
+    var transactions = await DbContext.Transactions.GetAllTransactions();
+    var personalInformation = await DbContext.UserPersonalInformations.GetAllUserInformation();
+}
+
+<table class="table">
+    <tr>
+        <th>#</th>
+        <th>Date</th>
+        <th>Quantity</th>
+        <th>Buyer</th>
+        <th>Item Name</th>
+    </tr>
+    <tbody>
+    @foreach (var transaction in transactions)
+    {
+        var buyer = personalInformation.FirstOrDefault(x => x.Account.Id == transaction.Buyer.Id);
+        <tr>
+            <th scope="row">@transaction.Id</th>
+            <td>@transaction.TransactionDate</td>
+            <td>@transaction.Quantity</td>
+            <td>@buyer.FirstName @buyer.LastName</td>
+            <td>@transaction.MediaBought.Name</td>
+        </tr>
+    }
+    </tbody>
+</table>

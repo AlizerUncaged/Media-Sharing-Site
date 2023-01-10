@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject RoleManager<IdentityRole> RoleManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center mb-4">
+    <h1 class="display-4 mt-2">Upload your media, get paid.</h1>
+    @if (!SignInManager.IsSignedIn(User))
+    {
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-primary me-2 shadow-lg" href="/Identity/Account/Login">Login <i class="bi bi-box-arrow-in-right"></i></a>
+            <a class="btn btn-primary me-2 shadow-lg" href="/Identity/Account/Register">Register <i class="bi bi-person-add"></i></a>
+        </div>
+    }
+</div>
+<div class="container">
+    @await Html.PartialAsync("Items")
+</div>
